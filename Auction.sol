@@ -4,24 +4,22 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract Auction { 
+contract Auction is ERC721{ 
 
     event NewBid(uint256 nftId, address bidder, uint256 amount);
     event FinishAuction(address buyer, address seller, uint256 finalPrice, uint256 nftId);
     event Withdraw(address indexed reciever, uint256 amount);
     
-    uint256 balance;
-    uint256 highestBid;
-    address highestBidder;
     mapping(uint256 => bool) activeNFT;
-    mapping(address => uint256) bids;
+    mapping(address => uint256) balance;
+    mapping(bytes32 => uint256) highestBid;
+    mapping(bytes32 => address) highestBidder;
+    mapping(bytes32 => AuctionInfo) auctions;
     mapping(address => mapping(uint256 => bool)) NFTsOwner;
-
-    Auction auction;
+    mapping(bytes32 => mapping(address => uint256)) bids;
 
     struct AuctionInfo {
         bool progress;
-        bytes32 auctionId;
         uint256 endTime;
         uint256 startedTime;
         uint256 nftId;
@@ -35,16 +33,16 @@ contract Auction {
         require(!activeNFT[_nftId]);
         require(_price > 0);
         
-        auction = AuctionInfo (
+        auctions[keccak256(abi.encodePacked(_nftId, block.timestamp))] = 
+        AuctionInfo (
             true,
-            [keccak256(abi.encodePacked(_nftId, block.timestamp))],
             block.timestamp + _auctionTime,
             block.timestamp,
             _nftId,
             _price,
             msg.sender
         );
-        activeNFT[_nftId] = true;\
+        activeNFT[_nftId] = true;
     }
 
     function callBackNFT(bytes32 _auctionAddress) external {
@@ -73,17 +71,16 @@ contract Auction {
         emit NewBid(_nftId, msg.sender, msg.value);
     }
 
-//    function mint(string memory _tokenURI, uint256 _price)
-//     public
-//     returns (bool)
-//     {
-//         uint256 _tokenId = totalSupply() + 1;
-//         ERC721.price[_tokenId] = _price;
-//         _mint(address(this), _tokenId);
-//         ERC721._setTokenURI(_tokenId, _tokenURI);
-//         return true;
-//     }
-
+   function mint(string memory _tokenURI, uint256 _price)
+    public
+    returns (bool)
+    {
+        uint256 _tokenId = totalSupply() + 1;
+        ERC721.price[_tokenId] = _price;
+        _mint(address(this), _tokenId);
+        ERC721._setTokenURI(_tokenId, _tokenURI);
+        return true;
+    }
     // function endAuction() external returns (bool) {
     //     require(highestBidderAddress != address(0));
 
