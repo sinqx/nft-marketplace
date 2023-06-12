@@ -6,8 +6,8 @@ require("solidity-coverage")
 require("hardhat-contract-sizer")
 require("dotenv").config()
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY || "4cd81e4b15e5083afc7005e8c69b3fb8d78b14a07746d76201c768ea47d26fd6"
-const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || "https://goerli.infura.io/v3/4d6e115355b844fa9fc7aa9e127cb89e"
+const PRIVATE_KEY = process.env.PRIVATE_KEY || ""
+const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || "https://goerli.infura.io/v3/"
 module.exports = {
     defaultNetwork: "goerli", 
     //     hardhat: {
@@ -79,7 +79,7 @@ module.exports = {
         hardhat: { },
           goerli: {
                 url: GOERLI_RPC_URL,   
-                accounts: [`0x${PRIVATE_KEY}`], //"4cd81e4b15e5083afc7005e8c69b3fb8d78b14a07746d76201c768ea47d26fd6",   
+                accounts: [`0x${PRIVATE_KEY}`],  
                 saveDeployments: true,
                 chainId: 5,
                 blockConfirmations: 6,
