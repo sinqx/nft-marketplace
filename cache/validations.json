@@ -1,0 +1,289 @@
+{
+  "version": "3.4",
+  "log": [
+    {
+      "@openzeppelin/contracts/utils/Counters.sol:Counters": {
+        "src": "@openzeppelin\\contracts\\utils\\Counters.sol:14",
+        "version": {
+          "withMetadata": "17ce048791de770140dad064b9af8c37589611b7bebc5112d4c5c869ed353ece",
+          "withoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff",
+          "linkedWithoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false
+        },
+        "solcVersion": "0.8.17"
+      },
+      "contracts/Auction.sol:Auction": {
+        "src": "contracts\\Auction.sol:6",
+        "version": {
+          "withMetadata": "75027b4a895febb0356ccde6e91fd5520bf92e303ed4228e4cf8d181dd29147f",
+          "withoutMetadata": "6ce0779b37f0c43dc54cb7e122f53e2c493f4a934157f0f09c618fbc03f77308",
+          "linkedWithoutMetadata": "6ce0779b37f0c43dc54cb7e122f53e2c493f4a934157f0f09c618fbc03f77308"
+        },
+        "inherit": [],
+        "libraries": [
+          "@openzeppelin/contracts/utils/Counters.sol:Counters"
+        ],
+        "methods": [
+          "()",
+          "()",
+          "ownerOf(uint32)",
+          "getBalance()",
+          "getAuctionTime(uint32)",
+          "isEnded(uint32)",
+          "getAuctionHighestBid(uint32)",
+          "getAuctionHighestBidder(uint32)",
+          "createNFT(string,string,string,uint256)",
+          "createAuction(uint256,uint32,uint16)",
+          "setMinBid(uint32,uint256)",
+          "placeBid(uint32,uint32)",
+          "_burn(uint32)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "nftCounter",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_struct(Counter)5_storage",
+              "contract": "Auction",
+              "src": "contracts\\Auction.sol:37"
+            },
+            {
+              "label": "auctionCounter",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_struct(Counter)5_storage",
+              "contract": "Auction",
+              "src": "contracts\\Auction.sol:38"
+            },
+            {
+              "label": "metadataURIs",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_mapping(t_bytes32,t_bool)",
+              "contract": "Auction",
+              "src": "contracts\\Auction.sol:40"
+            },
+            {
+              "label": "highestBid",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_mapping(t_uint32,t_uint256)",
+              "contract": "Auction",
+              "src": "contracts\\Auction.sol:41"
+            },
+            {
+              "label": "highestBidder",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_uint32,t_address)",
+              "contract": "Auction",
+              "src": "contracts\\Auction.sol:42"
+            },
+            {
+              "label": "nfts",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_uint32,t_struct(NFT)195_storage)",
+              "contract": "Auction",
+              "src": "contracts\\Auction.sol:43"
+            },
+            {
+              "label": "auctions",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_mapping(t_uint32,t_struct(AuctionInfo)208_storage)",
+              "contract": "Auction",
+              "src": "contracts\\Auction.sol:44"
+            },
+            {
+              "label": "auctionBids",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_mapping(t_uint32,t_mapping(t_address,t_uint256))",
+              "contract": "Auction",
+              "src": "contracts\\Auction.sol:45"
+            },
+            {
+              "label": "locked",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_bool)",
+              "contract": "Auction",
+              "src": "contracts\\Auction.sol:65"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_bool)": {
+              "label": "mapping(bytes32 => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint32,t_address)": {
+              "label": "mapping(uint32 => address)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint32,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(uint32 => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint32,t_struct(AuctionInfo)208_storage)": {
+              "label": "mapping(uint32 => struct Auction.AuctionInfo)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint32,t_struct(NFT)195_storage)": {
+              "label": "mapping(uint32 => struct Auction.NFT)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint32,t_uint256)": {
+              "label": "mapping(uint32 => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_string_storage": {
+              "label": "string",
+              "numberOfBytes": "32"
+            },
+            "t_struct(AuctionInfo)208_storage": {
+              "label": "struct Auction.AuctionInfo",
+              "members": [
+                {
+                  "label": "progress",
+                  "type": "t_bool",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "nftId",
+                  "type": "t_uint32",
+                  "offset": 1,
+                  "slot": "0"
+                },
+                {
+                  "label": "endTime",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                },
+                {
+                  "label": "startedTime",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "2"
+                },
+                {
+                  "label": "minBid",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "3"
+                },
+                {
+                  "label": "nftOwner",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "4"
+                }
+              ],
+              "numberOfBytes": "160"
+            },
+            "t_struct(Counter)5_storage": {
+              "label": "struct Counters.Counter",
+              "members": [
+                {
+                  "label": "_value",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                }
+              ],
+              "numberOfBytes": "32"
+            },
+            "t_struct(NFT)195_storage": {
+              "label": "struct Auction.NFT",
+              "members": [
+                {
+                  "label": "active",
+                  "type": "t_bool",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "PartOfMetadataURI",
+                  "type": "t_bytes32",
+                  "offset": 0,
+                  "slot": "1"
+                },
+                {
+                  "label": "PartOfMetadataURIAndName",
+                  "type": "t_bytes32",
+                  "offset": 0,
+                  "slot": "2"
+                },
+                {
+                  "label": "cost",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "3"
+                },
+                {
+                  "label": "description",
+                  "type": "t_string_storage",
+                  "offset": 0,
+                  "slot": "4"
+                },
+                {
+                  "label": "owner",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "5"
+                }
+              ],
+              "numberOfBytes": "192"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            },
+            "t_uint32": {
+              "label": "uint32",
+              "numberOfBytes": "4"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true
+        },
+        "solcVersion": "0.8.17"
+      }
+    }
+  ]
+}
