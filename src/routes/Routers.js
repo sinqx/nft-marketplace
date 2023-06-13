@@ -9,6 +9,7 @@ import Contact from "../pages/Contact";
 
 import Wallet from "../pages/Wallet";
 import NftDetails from "../pages/NftDetails";
+import MyNft from "../pages/MyNft";
 
 const Routers = () => {
   return (
@@ -20,6 +21,7 @@ const Routers = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/wallet" element={<Wallet />} />
       <Route path="/market/:id" element={<NftDetails />} />
+      <Route path="/my-nft" element={<MyNft />} />
     </Routes>
   );
 };

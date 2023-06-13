@@ -85,3 +85,14 @@
   color: #fff;
   border-bottom: 1px solid #5142fc;
 }
+.timer{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  font-size: 0.9rem;
+  color: #fff;
+  margin-bottom: 0;
+  font-weight: 500;
+}

@@ -7,7 +7,7 @@ import img06 from "../images/img-06.jpg";
 import img07 from "../images/img-07.jpg";
 import img08 from "../images/img-08.jpg";
 import img09 from "../images/img-09.jpg";
-import defaultAvatar from "../images/default-avatar.webp"
+import defaultAvatar from "../images/default-avatar.webp";
 
 export const NFT__DATA = [
   {
@@ -18,6 +18,11 @@ export const NFT__DATA = [
     creator: "Атызаков Даниил",
     creatorImg: defaultAvatar,
     currentBid: 5.89,
+    timerData: {
+      hours: 3,
+      minutes: 0,
+      seconds: 0,
+    },
   },
 
   {
@@ -28,6 +33,11 @@ export const NFT__DATA = [
     creator: "Атызаков Даниил",
     creatorImg: defaultAvatar,
     currentBid: 5.09,
+    timerData: {
+      hours: 10,
+      minutes: 0,
+      seconds: 0,
+    },
   },
 
   {
@@ -38,6 +48,11 @@ export const NFT__DATA = [
     creator: "Атызаков Даниил",
     creatorImg: defaultAvatar,
     currentBid: 6.89,
+    timerData: {
+      hours: 4,
+      minutes: 22,
+      seconds: 0,
+    },
   },
 
   {
@@ -48,6 +63,11 @@ export const NFT__DATA = [
     creator: "Атызаков Даниил",
     creatorImg: defaultAvatar,
     currentBid: 7.89,
+    timerData: {
+      hours: 1,
+      minutes: 0,
+      seconds: 0,
+    },
   },
 
   {
@@ -58,6 +78,11 @@ export const NFT__DATA = [
     creator: "Атызаков Даниил",
     creatorImg: defaultAvatar,
     currentBid: 4.89,
+    timerData: {
+      hours: 2,
+      minutes: 0,
+      seconds: 0,
+    },
   },
 
   {
@@ -68,6 +93,11 @@ export const NFT__DATA = [
     creator: "Атызаков Даниил",
     creatorImg: defaultAvatar,
     currentBid: 4.99,
+    timerData: {
+      hours: 2,
+      minutes: 0,
+      seconds: 0,
+    },
   },
 
   {
@@ -78,6 +108,11 @@ export const NFT__DATA = [
     creator: "Атызаков Даниил",
     creatorImg: defaultAvatar,
     currentBid: 5.89,
+    timerData: {
+      hours: 2,
+      minutes: 0,
+      seconds: 0,
+    },
   },
 
   {
@@ -88,6 +123,11 @@ export const NFT__DATA = [
     creator: "Атызаков Даниил",
     creatorImg: defaultAvatar,
     currentBid: 5.89,
+    timerData: {
+      hours: 2,
+      minutes: 0,
+      seconds: 0,
+    },
   },
 
   {
@@ -98,6 +138,11 @@ export const NFT__DATA = [
     creator: "Атызаков Даниил",
     creatorImg: defaultAvatar,
     currentBid: 5.89,
+    timerData: {
+      hours: 2,
+      minutes: 0,
+      seconds: 0,
+    },
   },
 ];
 
