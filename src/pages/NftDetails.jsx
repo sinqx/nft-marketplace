@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import CommonSection from "../components/ui/Common-section/CommonSection";
 import { useParams } from "react-router-dom";
@@ -13,6 +13,16 @@ import { Link } from "react-router-dom";
 
 const NftDetails = () => {
   const { id } = useParams();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const [history, setHistory] = useState([
+    { text: "Акы" },
+    { text: "Артурыч" },
+    { text: "Кролик Артур" },
+    { text: "Зубастик" },
+    { text: "Мелкий Барыга Акы" },
+    { text: "КЫРГЫЗ АРТУР АКЫ" },
+  ]);
 
   const singleNft = NFT__DATA.find((item) => item.id === id);
 
@@ -26,7 +36,7 @@ const NftDetails = () => {
             <Col lg="6" md="6" sm="6">
               <img
                 src={singleNft.imgUrl}
-                alt=""
+                alt="nft"
                 className="w-100 single__nft-img"
               />
             </Col>
@@ -67,10 +77,30 @@ const NftDetails = () => {
                 </div>
 
                 <p className="my-4">{singleNft.desc}</p>
-                <button className="singleNft-btn d-flex align-items-center gap-2 w-100">
+                <button className="singleNft-btn d-flex align-items-center gap-2 w-100 mb-4">
                   <i className="ri-shopping-bag-line"></i>
                   <Link to="/wallet">Сделать ставку</Link>
                 </button>
+
+                <div className="dropdown">
+                  <button
+                    className="dropdown-toggle"
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                  >
+                    История
+                  </button>
+                  <div
+                    className={`dropdown__menu ${
+                      dropdownOpen ? "drop_active" : ""
+                    }`}
+                  >
+                    {history.map((item, index) => (
+                      <div key={index} className="dropdown__item">
+                        {item.text}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </Col>
           </Row>
