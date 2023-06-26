@@ -1,4 +1,4 @@
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 992px) and (max-height: 1600px) {
   .nft__title {
     font-size: 0.8rem !important;
   }
@@ -12,9 +12,24 @@
   }
 
   .bid__btn {
-    padding: 40px 20px !important;
-    font-size: 0.6rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 90%;
+    max-width: 200px;
+    margin: 0 auto;
   }
+
+  .link {
+    text-decoration: none;
+  }
+  
+  .link.bid__btn {
+    text-decoration: none;
+  }
+
+  
   .history__link a {
     font-size: 0.6rem !important;
   }

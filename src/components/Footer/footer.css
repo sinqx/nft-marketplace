@@ -59,3 +59,15 @@
 .copyright {
   font-size: 0.8rem;
 }
+
+.logo img {
+  width: 70px;
+ }
+ .logo span {
+   background: linear-gradient(-45deg, #f48020, #007aff, #f48020, #007aff);
+   background-size: 100% 100%;
+   background-clip: text;
+   -webkit-text-stroke: 3px transparent;
+   -webkit-text-fill-color: #14141f;
+   margin-bottom: 0;
+ }

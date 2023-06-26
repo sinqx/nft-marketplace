@@ -5,11 +5,15 @@
 }
 
 .nft__img img {
-  border-radius: 10px;
+  height: 100%;
+  object-fit: cover;
 }
 
 .nft__img {
+  height: 300px;
+  overflow: hidden;
   margin-bottom: 15px;
+  border-radius: 10px;
 }
 
 .nft__title {

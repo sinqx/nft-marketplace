@@ -2,26 +2,33 @@ import { useState } from "react";
 import { setGlobalState, setLoadingMsg, setAlert } from "../store";
 import { create } from "ipfs-http-client";
 import "../styles/create-item.css";
-import { mintNFT } from "../Blockchain.Services";
+import { mintNFT, isWalletConnected, getNftCount } from "../Blockchain.Services";
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import CommonSection from "../components/ui/Common-section/CommonSection";
-import NftCard from "../components/ui/Nft-card/NftCard";
+import NftCard from "../components/ui/Nft-card/NftCardView";
 import defaultAvatar from "../assets/images/ava-01.png";
 import { Buffer } from "buffer";
 import DownloadIcon from "../assets/images/download-icon.png";
+import { useNavigate  } from "react-router-dom";
+
+window.addEventListener('load', async () => {
+  await isWalletConnected()
+})
 
 const CreateNFT = () => {
   const [_title, _setTitle] = useState("");
-  const [_price, setPrice] = useState("");
+  const [_royaltyFee, setRoyaltyFee] = useState("");
   const [_description, _setDescription] = useState("");
   const [fileUrl, setFileUrl] = useState("");
   const [imgBase64, setImgBase64] = useState(null);
+  const navigate = useNavigate();
+
 
   const auth =
     "Basic " +
     Buffer.from(
-      "2Pn8jQb4ZFraXRSVqSJUpDmqS7s" + ":" + "ff2706b3bcd65de4c765886a1159d094"
+      "2Pn8jQb4ZFraXRSVqSJUpDmqS7s:ff2706b3bcd65de4c765886a1159d094"
     ).toString("base64");
 
   const client = create({
@@ -33,42 +40,41 @@ const CreateNFT = () => {
     },
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!_title || !_price || !_description || !fileUrl) return;
+  if (!_title || !_royaltyFee || !_description || !fileUrl) return;
 
-    setGlobalState("modal", "scale-0");
-    setGlobalState("loading", { show: true, msg: "Uploading IPFS data..." });
+  setGlobalState("modal", "scale-0");
+  setGlobalState("loading", { show: true, msg: "Uploading IPFS data..." });
 
-    try {
-      const created = await client.add(fileUrl);
+  try {
+    const created = await client.add(fileUrl);
+    const metadataURI = `https://ipfs.io/ipfs/${created.path}`;
+    const nft = {
+      _imageHash: created.path,
+      _title,
+      _description,
+      _royaltyFee,
+    };
 
-      const metadataURI = `https://ipfs.io/ipfs/${created.path}`;
-      console.log(metadataURI);
-      console.log(created);
-      console.log(fileUrl);
+    setLoadingMsg("Intializing transaction...");
+    setFileUrl(metadataURI);
+    await mintNFT(nft);
 
-      const nft = {
-        _imageHash: fileUrl,
-        _title,
-        _description,
-        _salesPrice: _price,
-      };
+    resetForm();
+    setAlert("Minting completed...", "green");
 
-      setLoadingMsg("Intializing transaction...");
-      setFileUrl(metadataURI);
-      console.log(nft);
-      await mintNFT(nft);
+    // Получаем id созданного NFT
+    const nftId = await getNftCount()// ваш код для получения id созданного NFT
 
-      resetForm();
-      setAlert("Minting completed...", "green");
-      //     window.location.reload();
-    } catch (error) {
-      console.log("Error uploading file: ", error);
-      setAlert("Minting failed...", "red");
-    }
-  };
+    // Переходим на страницу созданного NFT
+    navigate(`/nft/${nftId}`);
+  } catch (error) {
+    console.log("Error uploading file: ", error);
+    setAlert("Minting failed...", "red");
+  }
+};
 
   const changeImage = async (e) => {
     const reader = new FileReader();
@@ -84,7 +90,7 @@ const CreateNFT = () => {
 
   const resetForm = () => {
     _setTitle("");
-    setPrice("");
+    setRoyaltyFee("");
     _setDescription("");
     setImgBase64(null);
     setFileUrl("");
@@ -101,9 +107,9 @@ const CreateNFT = () => {
               <NftCard
                 item={{
                   imgUrl: imgBase64,
-                  _title: _title,
+                  title: _title,
                   creatorImg: defaultAvatar,
-                  currentBid: _price,
+                  currentBid: _royaltyFee,
                 }}
               />
             </Col>
@@ -116,12 +122,16 @@ const CreateNFT = () => {
                       name="file"
                       type="file"
                       id="input__file"
+                      required
+                      accept="image/png, image/gif, image/jpeg, image/webp"
                       className="input input__file"
                       multiple
+                      onChange={(e) => changeImage(e)}
                     />
                     <label htmlFor="input__file" className="input__file-button">
                       <span className="input__file-icon-wrapper">
                         <img
+                          accept="image/png, image/gif, image/jpeg, image/webp"
                           className="input__file-icon"
                           src={DownloadIcon}
                           alt="Выбрать файл"
@@ -131,27 +141,19 @@ const CreateNFT = () => {
                         Выберите файл
                       </span>
                     </label>
-                    {/*<label htmlFor="">Загрузить файл</label>*/}
-                    {/*<input*/}
-                    {/*	type="file"*/}
-                    {/*	accept="image/png, image/gif, image/jpeg, image/webp"*/}
-                    {/*	required*/}
-                    {/*	name="file"*/}
-                    {/*	className="upload__input"*/}
-                    {/*	onChange={(e) => changeImage(e)}*/}
-                    {/*/>*/}
                   </div>
 
                   <div className="form__input">
-                    <label htmlFor="">Цена</label>
+                    <label htmlFor="">Роялтис %</label>
                     <input
                       type="number"
-                      name="price"
-                      step={0.0000001}
-                      min={0.00000001}
-                      placeholder="Цена (Eth)"
-                      value={_price}
-                      onChange={(e) => setPrice(e.target.value)}
+                      name="_royaltyFee"
+                      step={1}
+                      min={0}
+                      max={20}
+                      placeholder="royaltyFee"
+                      value={_royaltyFee}
+                      onChange={(e) => setRoyaltyFee(e.target.value)}
                       required
                     />
                   </div>
@@ -185,7 +187,7 @@ const CreateNFT = () => {
 
                   <div className="upload__btn_box">
                     <button type="submit" className="upload__btn">
-                      Mint Now
+                      Создать
                     </button>
                   </div>
                 </form>

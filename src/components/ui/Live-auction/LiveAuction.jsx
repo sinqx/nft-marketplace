@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
-
 import NftCard from "../Nft-card/NftCard";
-import { NFT__DATA } from "../../../assets/data/data.js";
-
+import { getActiveNFTs } from "../../../Blockchain.Services";
 import "./live-auction.css";
 
 const LiveAuction = () => {
+  const [auctionFilter, setAuctionFilter] = useState([]); // добавлено новое состояние
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const nfts = await getActiveNFTs();
+      if (nfts !== null) { // проверяем, не равен ли результат null
+        setAuctionFilter(nfts.filter((item) => item.onAuction));   // фильтруем и устанавливаем исходные данные в auctionFilter
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <section>
       <Container>
@@ -21,7 +31,7 @@ const LiveAuction = () => {
             </div>
           </Col>
 
-          {NFT__DATA.slice(0, 4).map((item, index) => (
+          {auctionFilter.slice(0, 4).map((item, index) => (
             <Col lg="3" key={index} md="4" sm="6" className="mb-4">
               <NftCard item={item} />
             </Col>

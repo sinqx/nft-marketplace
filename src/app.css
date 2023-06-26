@@ -50,10 +50,10 @@ footer {
 
 ::-webkit-scrollbar {
   width: 10px;
-  background: #007aff;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 2em;
-  background: linear-gradient(-45deg, #f48020, #007aff, #f48020, #007aff);
+  background: linear-gradient(-45deg, #f48020, #007aff, #f48020);
 }

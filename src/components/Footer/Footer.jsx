@@ -2,7 +2,7 @@ import React from "react";
 
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import "./footer.css";
-import envoysLogo from "../../assets/images/envoysLogo.svg";
+import logoo from "../../assets/images/logo.svg";
 
 import { Link } from "react-router-dom";
 
@@ -24,25 +24,6 @@ const MY__ACCOUNT = [
     url: "/edit-profile",
   },
 ];
-
-// const RESOURCES = [
-//   {
-//     display: "Help Center",
-//     url: "#",
-//   },
-//   {
-//     display: "Partner",
-//     url: "#",
-//   },
-//   {
-//     display: "Community",
-//     url: "#",
-//   },
-//   {
-//     display: "Activity",
-//     url: "#",
-//   },
-// ];
 
 const COMPANY = [
   {
@@ -73,12 +54,12 @@ const Footer = () => {
               <h2 className=" d-flex gap-2 align-items-center ">
                 <span>
                   <img 
-                  src={envoysLogo}
+                  src={logoo}
                   alt="logo"
-                  className="w-200"
+                  className="logo"
                   />
                 </span>
-                Envoys
+                uniVision
               </h2>
               <p>
                 Проект создан в качестве дипломной работы

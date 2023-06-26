@@ -1,52 +1,67 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState  } from "react";
 import CommonSection from "../components/ui/Common-section/CommonSection";
-
 import NftCard from "../components/ui/Nft-card/NftCard";
-
-import { NFT__DATA } from "../assets/data/data";
-
 import { Container, Row, Col } from "reactstrap";
-
+import { getActiveNFTs, isWalletConnected } from "../Blockchain.Services.jsx";
 import "../styles/market.css";
 
+await  isWalletConnected();
+
 const Market = () => {
-  const [data, setData] = useState(NFT__DATA);
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]); // добавлено новое состояние
+  const [sortType, setSortType] = useState("new"); // новые по умолчанию
 
-  const handleCategory = () => {};
+  useEffect(() => {
+    const fetchData = async () => {
+      const nfts = await getActiveNFTs();  // поменять на getActiveNFTs()
+      setData(nfts);
+      setFilteredData(nfts); // устанавливаем исходные данные в filteredData
+    };
+    fetchData();
+  }, []);
 
-  const handleItems = () => {};
+
+  const handleCategory = (e) => {
+    const category = e.target.value;
+
+    let filteredNfts = [...data];
+
+    if (category === "sell") {
+      filteredNfts = filteredNfts.filter((item) => item.onSale );
+    } else if (category === "auction") {
+      filteredNfts = filteredNfts.filter((item) => item.onAuction);
+    }
+
+    setFilteredData(filteredNfts); // сохраняем отфильтрованные данные в filteredData
+
+    // проверяем, выбрана ли категория "Все категории"
+    if (category === "Все категории") {
+      setFilteredData(data);
+      return;
+    }
+  };
 
   // ====== SORTING DATA BY HIGH, MID, LOW RATE =========
   const handleSort = (e) => {
     const filterValue = e.target.value;
 
-    if (filterValue === "high") {
-      const filterData = NFT__DATA.filter((item) => item.currentBid >= 6);
+    setSortType(filterValue);
 
-      setData(filterData);
+    let sortedData = [...filteredData];
+
+    if (filterValue === "new") {
+      sortedData.sort((a, b) => b.id - a.id);
+    } else if (filterValue === "old") {
+      sortedData.sort((a, b) => a.id - b.id);
     }
 
-    if (filterValue === "mid") {
-      const filterData = NFT__DATA.filter(
-        (item) => item.currentBid >= 5.5 && item.currentBid < 6
-      );
-
-      setData(filterData);
-    }
-
-    if (filterValue === "low") {
-      const filterData = NFT__DATA.filter(
-        (item) => item.currentBid >= 4.89 && item.currentBid < 5.5
-      );
-
-      setData(filterData);
-    }
+    setFilteredData(sortedData); // сохраняем отсортированные данные в filteredData
   };
 
   return (
     <>
-      <CommonSection title={"MarketPlace"} />
+      <CommonSection title={"Торговая площадка NFT"} />
 
       <section>
         <Container>
@@ -57,33 +72,23 @@ const Market = () => {
                   <div className="all__category__filter">
                     <select onChange={handleCategory}>
                       <option>Все категории</option>
-                      <option value="buyNow">Купить сейчас</option>
+                      <option value="sell">Купить сейчас</option>
                       <option value="auction">Аукцион</option>
                     </select>
                   </div>
-
-                  <div className="all__items__filter">
-                    <select onChange={handleItems}>
-                      <option>Все картины</option>
-                      <option value="single-item">NFT Картина</option>
-                      <option value="bundle">Физическая картина</option>
-                    </select>
-                  </div>
                 </div>
-
                 <div className="filter__right">
-                  <select onChange={handleSort}>
-                    <option>Соритровать</option>
-                    <option value="mid">Сначала дороже</option>
-                    <option value="low">Сначала дешевле</option>
+                  <select onChange={handleSort} value={sortType}>
                     <option value="new">Сначала новые</option>
                     <option value="old">Сначала старые</option>
+                    <option value="mid">Сначала дороже</option>
+                    <option value="low">Сначала дешевле</option>
                   </select>
                 </div>
               </div>
             </Col>
 
-            {data?.map((item) => (
+            {filteredData?.map((item) => (
               <Col lg="3" md="4" sm="6" className="mb-4" key={item.id}>
                 <NftCard item={item} />
               </Col>

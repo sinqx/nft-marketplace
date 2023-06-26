@@ -1,47 +1,104 @@
-import React from "react";
+import React, { useState } from "react";
+import "./modal.css"; // import stylesheet
+import Switch from "react-switch";
 
-import "./modal.css";
+const SellNftForm = ({ sellNft, sellNftAuction }) => {
+  const [show, setShow] = useState(true); // установите show в true, чтобы окно сразу показывалось
+  const [sellPrice, setSellPrice] = useState("");
+  const [isAuction, setIsAuction] = useState(false);
+  const [auctionEndTime, setAuctionEndTime] = useState("");
+  const [auctionStartingPrice, setAuctionStartingPrice] = useState("");
 
-const Modal = ({ setShowModal }) => {
+  const handleClose = () => setShow(false);
+
+  const handleToggle = () => {
+    setIsAuction(!isAuction);
+  };
+
+  const handleSellNft = async (e) => {
+    e.preventDefault(); // вызываем preventDefault()
+    if (isAuction) {
+      const auctionEndTimeInUnix = Math.round(new Date(auctionEndTime).getTime() / 1000);
+      await sellNftAuction(auctionStartingPrice, sellPrice, auctionEndTimeInUnix);
+    } else {
+      await sellNft(sellPrice);
+    } 
+    handleClose();
+  };
+
+
   return (
-    <div className="modal__wrapper">
-      <div className="single__modal">
-        <span className="close__modal">
-          <i className="ri-close-line" onClick={() => setShowModal(false)}></i>
-        </span>
-        <h6 className="text-center text-light"> Новая ставка </h6>
-        <p className="text-center text-light">
-          Ваша ставка должна быть выше <span className="money">5.89 ETH</span>
-        </p>
-
-        <div className="input__item mb-4">
-          <input type="number" placeholder="00 : 00 ETH" />
+    <>
+      {show && (
+        <div className="modal__wrapper">
+          <div className="single__modal">
+            <span className="close__modal" onClick={handleClose}>
+              <i className="fa fa-times"> x </i>
+            </span>
+            <h6 className="title">{isAuction ? "Создание аукциона" : "Прямая продажа"}</h6>
+            <br></br>
+            <form onSubmit={handleSellNft}>
+              <div className="input__item">
+                <h6>Цена в wei</h6>
+                <input
+                  type="number"
+                  placeholder="Введите сумму"
+                  value={sellPrice}
+                  onChange={(e) => setSellPrice(e.target.value)}
+                />
+              </div>
+              <br></br>
+              <div className="input__item">
+                <Switch
+                  onChange={handleToggle}
+                  checked={isAuction}
+                  onColor="#86d3ff"
+                  onHandleColor="#2693e6"
+                  handleDiameter={20}
+                  uncheckedIcon={false}
+                  checkedIcon={false}
+                  boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                  activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                  height={10}
+                  width={28}
+                  className="react-switch"
+                  id="material-switch"
+                />
+              </div>
+              <br></br>
+              {isAuction && (
+                <>
+                  <div className="input__item">
+                    <h6>Время окончание аукциона</h6>
+                    <input
+                      type="datetime-local"
+                      placeholder="Enter auction end time"
+                      value={auctionEndTime}
+                      onChange={(e) => setAuctionEndTime(e.target.value)}
+                    />
+                  </div>
+                  <div className="input__item">
+                    <h6>Начальная цена в wei</h6>
+                    <input
+                      type="number"
+                      placeholder="Введите сумму"
+                      value={auctionStartingPrice}
+                      onChange={(e) =>
+                        setAuctionStartingPrice(e.target.value)
+                      }
+                    />
+                  </div>
+                </>
+              )}
+              <button className="place__bid-btn" type="submit">
+                {isAuction ? "Создать аукцион" : "Создать прямую продажу"}
+              </button>
+            </form>
+          </div>
         </div>
-
-        {/* <div className="input__item mb-3">
-          <h6> количество </h6>
-          <input type="number" placeholder="Enter quantity" />
-        </div> */}
-
-        {/* <div className=" d-flex align-items-center justify-content-between">
-          <p>Минимальная ставка </p>
-          <span className="money">5.89 ETH</span>
-        </div> */}
-
-        <div className=" d-flex align-items-center justify-content-between">
-          <p> Комиссия </p>
-          <span className="money">0.009 ETH</span>
-        </div>
-
-        <div className=" d-flex align-items-center justify-content-between">
-          <p> Общая сумма </p>
-          <span className="money">5.899 ETH</span>
-        </div>
-
-        <button className="place__bid-btn"> Сделать ставку</button>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
-export default Modal;
+export default SellNftForm;

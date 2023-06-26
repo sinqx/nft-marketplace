@@ -5,33 +5,35 @@ import { Container } from "reactstrap";
 import { useGlobalState, truncate } from '../../store'
 import { connectWallet } from '../../Blockchain.Services'
 import { NavLink } from "react-router-dom";
-import envoysLogo from "../../assets/images/envoysLogo.svg";
+import logoo from "../../assets/images/logo.svg";
 
-const NAV__LINKS = [
-  {
-    display: "Главная",
-    url: "/home",
-  },
-  {
-    display: "Торговая площадка",
-    url: "/market",
-  },
-  {
-    display: "Создать",
-    url: "/create",
-  },
-  {
-    display: "Инструкция",
-    url: "/contact",
-  },
-];
 
 const Header = () => {
   const [connectedAccount] = useGlobalState('connectedAccount')
   const headerRef = useRef(null);
-
   const menuRef = useRef(null);
-
+  const NAV__LINKS = [
+    {
+      display: "Главная",
+      url: "/home",
+    },
+    {
+      display: "Торговая площадка",
+      url: "/market",
+    },
+    {
+      display: "Создать",
+      url: "/create",
+    },
+    {
+      display: "Мои картины",
+      url: `/user/${connectedAccount}`,
+    },
+    {
+      display: "Инструкция",
+      url: "/Help",
+    },
+  ];
   useEffect(() => {
     const handleScroll = () => {
       if (
@@ -66,14 +68,14 @@ const Header = () => {
         <div className="navigation">
           <div className="logo">
             <h2 className=" d-flex gap-2 align-items-center ">
-              <span>
+             
                 <img
-                  src={envoysLogo}
+                  src={logoo}
                   alt="logo"
-                  className="w-200"
+                  className="logo"
                 />
-              </span>
-              Envoys
+               <span>
+               uniVision</span>
             </h2>
           </div>
 

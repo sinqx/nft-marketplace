@@ -17,18 +17,20 @@ const wallet__data = [
 const Wallet = () => {
   return (
     <>
-      <CommonSection title="Connect Wallet" />
+      <CommonSection title="Инструкция" />
       <section>
         <Container>
           <Row>
             <Col lg="12" className="mb-5 text-center">
-              <div className="w-50 m-auto">
-                <h3 className="text-light">Подключите ваш крипто-кошелёк</h3>
+              <div className="w-100 m-auto">
+                <h3 className="text-light">Начните создавать</h3>
                 <p>
                   
                 </p>
               </div>
             </Col>
+
+            
 
             {wallet__data.map((item, index) => (
               <Col lg="3" md="4" sm="6" key={index} className="mb-4">

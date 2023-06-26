@@ -47,7 +47,7 @@ const StepSection = () => {
                 </span>
                 <div className="step__item__content">
                   <h5>
-                    <Link to="/wallet">{item.title}</Link>
+                    <Link to="/help">{item.title}</Link>
                   </h5>
                   <p className="mb-0">{item.desc}</p>
                 </div>

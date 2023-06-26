@@ -1,16 +1,16 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "D:\\Учёба\\nft-MarketPlace\\contracts\\Auction.sol": {
-      "lastModificationDate": 1685261012286,
-      "contentHash": "d4d3f4e7e01fd9c81365b8ba87bdbc91",
+    "D:\\nft\\nft-auction\\contracts\\Auction.sol": {
+      "lastModificationDate": 1687213772253,
+      "contentHash": "65a0ef4fed6786680c48c75a695174bb",
       "sourceName": "contracts/Auction.sol",
       "solcConfig": {
         "version": "0.8.17",
         "settings": {
           "optimizer": {
-            "enabled": false,
-            "runs": 200
+            "enabled": true,
+            "runs": 1500
           },
           "outputSelection": {
             "*": {
@@ -36,7 +36,8 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/utils/Counters.sol"
+        "@openzeppelin/contracts/utils/Counters.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -45,16 +46,58 @@
         "Auction"
       ]
     },
-    "D:\\Учёба\\nft-MarketPlace\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
-      "lastModificationDate": 1685049265422,
+    "D:\\nft\\nft-auction\\node_modules\\hardhat\\console.sol": {
+      "lastModificationDate": 1686652770664,
+      "contentHash": "4ff3cd2f6272c9a6516e9ee4f2b967d3",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1500
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">= 0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "D:\\nft\\nft-auction\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
+      "lastModificationDate": 1686652765817,
       "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {
         "version": "0.8.17",
         "settings": {
           "optimizer": {
-            "enabled": false,
-            "runs": 200
+            "enabled": true,
+            "runs": 1500
           },
           "outputSelection": {
             "*": {
